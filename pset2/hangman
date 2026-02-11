@@ -1,0 +1,32 @@
+# Learnings
+
+This repository contains my practice work and problem sets while studying computer science fundamentals.
+
+---
+
+## MIT 6.0001 – Introduction to Computer Science Using Python
+
+### Problem Set 2 – Hangman
+
+A console-based implementation of the Hangman game.
+
+#### Features
+- Random word selection
+- Input validation
+- Guess tracking
+- Vowel/consonant penalty logic
+- Optional hint system
+- State management using functions
+
+#### Concepts Practiced
+- Control flow (loops and conditionals)
+- Function design
+- Boolean logic
+- String manipulation
+- List mutation
+- Defensive programming
+- Basic game state modeling
+
+---
+
+More problem sets and learning modules will be added progressively.
