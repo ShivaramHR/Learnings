@@ -1,0 +1,95 @@
+"""
+===========================================================
+PSET 3 – DOCUMENT DISTANCE
+===========================================================
+
+Overview:
+---------
+This program computes the similarity between two text documents
+based on word frequency.
+
+Each document is:
+    1. Loaded from a file
+    2. Cleaned (lowercased and punctuation removed)
+    3. Converted into a list of words
+    4. Converted into a frequency dictionary
+    5. Compared using a similarity formula
+
+The similarity score returned is a float between 0 and 1:
+
+    1.0  → Documents are identical
+    0.0  → Documents share no common words
+
+
+Similarity Formula:
+-------------------
+For each distinct word in either document:
+
+    Let count1 = frequency in document 1
+    Let count2 = frequency in document 2
+
+    DIFF = sum of |count1 - count2|
+    ALL  = sum of (count1 + count2)
+
+    similarity = 1 - (DIFF / ALL)
+
+If both documents are empty:
+    similarity = 1.0
+
+
+Program Structure:
+------------------
+
+1) load_file(filename)
+   - Reads file contents
+   - Removes punctuation
+   - Converts text to lowercase
+   - Returns cleaned string
+
+2) text_to_list(input_text)
+   - Splits cleaned string into list of words
+   - Returns list of words
+
+3) get_frequencies(input_iterable)
+   - Builds dictionary mapping word → frequency
+   - Returns frequency dictionary
+
+4) calculate_similarity_score(freq_dict1, freq_dict2)
+   - Computes similarity using formula
+   - Returns similarity rounded to 2 decimal places
+
+
+Data Flow:
+----------
+
+File
+ ↓
+load_file()
+ ↓
+text_to_list()
+ ↓
+get_frequencies()
+ ↓
+calculate_similarity_score()
+ ↓
+Similarity Score
+
+
+Edge Cases:
+-----------
+- If both documents are empty → return 1.0
+- If documents share no words → return 0.0
+- Missing words are treated as frequency 0
+
+
+Learning Goals:
+---------------
+- File handling
+- String processing
+- Dictionary frequency counting
+- Set operations (union of keys)
+- Translating math formulas into code
+- Modular program design
+
+===========================================================
+"""
