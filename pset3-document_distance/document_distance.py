@@ -249,16 +249,16 @@ def get_tfidf(tf_file_path, idf_file_paths):
     tf_dict = get_tf(tf_file_path)
     idf_dict = get_idf(idf_file_paths)
 
-    tfid_list = []
+    tf_idf_list = []
 
     for word in tf_dict:
         tfid = tf_dict[word]*idf_dict[word]
-        tfid_list.append((word, tfid))
-    return tfid_list
+        tf_idf_list.append((word, tfid))
+    return tf_idf_list
 
 
 if __name__ == "__main__":
-    pass
+
     ###############################################################
     ## Uncomment the following lines to test your implementation ##
     ###############################################################
