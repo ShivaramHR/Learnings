@@ -1,2 +1,6 @@
-var x "shivaram"
+stack x [1,2,3]
+stack append x 4
+stack append x 5
+stack pop x
+stack del x 0
 print x

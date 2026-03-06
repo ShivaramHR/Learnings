@@ -3,11 +3,14 @@ import operator
 # This is for printing the output of the program. It checks if the first token is 'print' and then prints the second token. If there are more than 2 tokens, it joins them together and prints the resulting string.
 def printEval(tokens):
     if tokens[0] == 'print':
-        if len(tokens) == 2 and tokens[1] not in varValues:
+        if len(tokens) == 2 and tokens[1] not in varValues and tokens[1] not in stacksVarValues:
             tokens[1] = tokens[1].strip().strip('""')  # Remove any leading/trailing whitespace
             print(tokens[1])
-        if tokens[1] in varValues:
+        elif tokens[1] in varValues :
             print(varValues[tokens[1]])
+            return
+        elif tokens[1] in stacksVarValues:
+            print(stacksVarValues)
             return
         else:
             sentance = " ".join(tokens) # joins the remaining tokens into a single string 
@@ -54,7 +57,39 @@ def mathOpsEval(tokens):
             return
         print(result)
     else:
-        print(f"Unknown operation: {op}")   
+        print(f"Unknown operation: {op}") 
+
+
+stacksVarValues = {}
+def stacksVarEval(tokens):
+    var = tokens[0]
+    old_value = tokens[1].replace("'", "").replace("[", "").replace("]", "")
+    new_value = list(old_value.split(','))
+    stacksVarValues[var] = new_value
+
+
+def stackAppend(var, value):
+    if var in stacksVarValues:
+        stacksVarValues[var] += str(value)
+    else:
+        stacksVarValues[var] = str(value)
+
+def stackPop(var, value = None):
+    if var in stacksVarValues and stacksVarValues[var]:
+        stacksVarValues[var].pop()
+
+def stackDel(var, index):
+    if var in stacksVarValues and 0 <= index < len(stacksVarValues[var]):
+        del stacksVarValues[var][index]
+
+
+stackOperations = {
+    'append': stackAppend,
+    'pop': stackPop,
+    'del': stackDel
+}
+
+    
 
 def exec():
     if tokens[0] == 'print':
@@ -65,7 +100,12 @@ def exec():
     elif tokens[0] == 'var':
         tokens.pop(0)
         varEval(tokens)
-    
+    elif tokens[0] == 'stack':
+        if tokens[1] in stackOperations:
+            stackOperations[tokens[1]](tokens[2], int(tokens[3]) if len(tokens) > 3 else None)
+        else:       
+            stacksVarEval(tokens[1:])
+
 with open("program.my", 'r') as file:
     for line in file:
         tokens = line.strip('\n').split()
