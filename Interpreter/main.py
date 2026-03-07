@@ -97,7 +97,7 @@ def stackAppend(var, value):
     if var in stacksVarValues:
         stacksVarValues[var].append(value)
     else:
-        stacksVarValues[var] = str(value)
+        stacksVarValues[var] = [value]
 
 def stackPop(var, value = None):
     if var in stacksVarValues and stacksVarValues[var]:
