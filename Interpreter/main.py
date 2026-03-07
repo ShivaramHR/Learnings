@@ -1,4 +1,15 @@
 import operator
+operations = {
+    'add': operator.add,
+    'sub': operator.sub,
+    'mul': operator.mul,
+    'div': operator.truediv,
+    'mod': operator.mod,
+    'pow': operator.pow
+}
+varValues = {}
+stacksVarValues = {}
+
 
 # This is for printing the output of the program. It checks if the first token is 'print' and then prints the second token. If there are more than 2 tokens, it joins them together and prints the resulting string.
 def printEval(tokens):
@@ -18,24 +29,25 @@ def printEval(tokens):
             print(clean)
 
 
-varValues = {}
+
 def varEval(tokens):
+    if '=' not in tokens:
+        return
+    eq_index = tokens.index('=')
     var = tokens[0]
-    if isinstance(tokens[-1], str):
-        varValues[var] = tokens[-1].strip('"').strip('.')
+    expr = tokens[eq_index + 1:]
+
+    if expr[-1] in operations.keys():
+            varValues[var] = mathOpsEval(expr[1:])
     else:
-        value = float(tokens[-1]) 
-        varValues[var] = value
+        try:
+            varValues[var] = float(expr[0])
+        except ValueError:
+            varValues[var] = expr[0].strip('"')  # Remove quotes if it's a string
 
 
-operations = {
-    'add': operator.add,
-    'sub': operator.sub,
-    'mul': operator.mul,
-    'div': operator.truediv,
-    'mod': operator.mod,
-    'pow': operator.pow
-}
+
+
 def mathOpsEval(tokens):
     op = tokens[-1]
     nums = []
@@ -53,14 +65,12 @@ def mathOpsEval(tokens):
         for num in nums[1:]:
             result = operations[op](result, num)
         if result.is_integer():
-            print(int(result))
-            return
-        print(result)
+            return int(result)
+        return(result)
     else:
         print(f"Unknown operation: {op}") 
 
 
-stacksVarValues = {}
 def stacksVarEval(tokens):
     var = tokens[0]
     old_value = tokens[1].replace("'", "").replace("[", "").replace("]", "")
@@ -108,6 +118,6 @@ def exec():
 
 with open("program.my", 'r') as file:
     for line in file:
-        tokens = line.strip('\n').split()
+        tokens = [token.strip() for token in line.strip('\n').split() if token.strip() != '']
         if tokens:  # Check if the line is not empty
             exec()

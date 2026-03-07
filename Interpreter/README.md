@@ -14,6 +14,8 @@ A small programming language interpreter written in Python.
     - stack pop variable_name
     - stack del variable_name index 
 - arithmetic operations
+    Syntax:
+    - math n1 n2 op
 - multi-number math operations
 - operator dispatch table
 - more features will be added
