@@ -49,7 +49,7 @@ def varEval(tokens):
         quit()
     expr = tokens[eq_index + 1:]
 
-    if expr[-1] in allMathOperations.keys():
+    if expr[-1] in allMathOperations:
             varValues[var] = mathOpsEval(expr[:])
     else:
         try:
@@ -76,7 +76,7 @@ def mathOpsEval(tokens):
         result = nums[0]
         for num in nums[1:]:
             result = arithmeticOperations[op](result, num)
-        if result.is_integer() and isinstance(result, float):
+        if isinstance(result, float) and result.is_integer():
             return int(result)
         return(result)
     elif op in compareOperations and len(nums) == 2:
