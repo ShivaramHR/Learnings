@@ -6,7 +6,9 @@ A small programming language interpreter written in Python.
 - print statements
 - variables
     Syntax:
-    - var x 5 {this assigns the value of x to 5}
+    - var x = 5 {this assigns the value of x to 5}
+    - you can now use math operations in variables
+    Eg: var x = 4 5 add {it assigns the value of x to 9}
 - stacks and their operations
     Syntax:
     - stack x [1,2,3] {creates a new stack}
