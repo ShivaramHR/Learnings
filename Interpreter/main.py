@@ -21,7 +21,7 @@ def printEval(tokens):
             print(varValues[tokens[1]])
             return
         elif tokens[1] in stacksVarValues:
-            print(stacksVarValues)
+            print(stacksVarValues[tokens[1]])
             return
         else:
             sentance = " ".join(tokens) # joins the remaining tokens into a single string 
@@ -102,17 +102,15 @@ stackOperations = {
     'del': stackDel
 }
 
-    
-
 def exec():
     if tokens[0] == 'print':
         printEval(tokens)
     elif tokens[0] == 'math':
-        tokens.pop(0)
-        mathOpsEval(tokens)
+        tokensCpy = tokens[1:]
+        mathOpsEval(tokensCpy)
     elif tokens[0] == 'var':
-        tokens.pop(0)
-        varEval(tokens)
+        tokensCpy = tokens[1:]
+        varEval(tokensCpy)
     elif tokens[0] == 'stack':
         if tokens[1] in stackOperations:
             stackOperations[tokens[1]](tokens[2], int(tokens[3]) if len(tokens) > 3 else None)

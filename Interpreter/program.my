@@ -1,2 +1,2 @@
-var x = rkngn
-print x
+stack c [1,2,3]
+print c
