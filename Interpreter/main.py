@@ -1,5 +1,5 @@
 import operator
-operations = {
+arithmeticOperations = {
     'add': operator.add,
     'sub': operator.sub,
     'mul': operator.mul,
@@ -7,6 +7,15 @@ operations = {
     'mod': operator.mod,
     'pow': operator.pow
 }
+compareOperations = {
+    'gt': operator.gt,
+    'lt': operator.lt,
+    'eq': operator.eq,
+    'gte': operator.ge,
+    'lte': operator.le,
+    'neq': operator.ne
+}
+allMathOperations = {**arithmeticOperations, **compareOperations}
 varValues = {}
 stacksVarValues = {}
 
@@ -40,7 +49,7 @@ def varEval(tokens):
         quit()
     expr = tokens[eq_index + 1:]
 
-    if expr[-1] in operations.keys():
+    if expr[-1] in allMathOperations.keys():
             varValues[var] = mathOpsEval(expr[:])
     else:
         try:
@@ -63,13 +72,16 @@ def mathOpsEval(tokens):
     except ValueError:
         print(f"Invalid number: {token}")
         return
-    if op in operations:
+    if op in arithmeticOperations:
         result = nums[0]
         for num in nums[1:]:
-            result = operations[op](result, num)
-        if result.is_integer():
+            result = arithmeticOperations[op](result, num)
+        if result.is_integer() and isinstance(result, float):
             return int(result)
         return(result)
+    elif op in compareOperations and len(nums) == 2:
+        result = compareOperations[op](nums[0], nums[1])
+        return result
     else:
         print(f"Unknown operation: {op}") 
 
@@ -107,7 +119,9 @@ def exec():
         printEval(tokens)
     elif tokens[0] == 'math':
         tokensCpy = tokens[1:]
-        mathOpsEval(tokensCpy)
+        result = mathOpsEval(tokensCpy)
+        if result is not None:
+            print(result)
     elif tokens[0] == 'var':
         tokensCpy = tokens[1:]
         varEval(tokensCpy)
