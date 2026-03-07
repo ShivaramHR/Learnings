@@ -83,7 +83,7 @@ def stacksVarEval(tokens):
 
 def stackAppend(var, value):
     if var in stacksVarValues:
-        stacksVarValues[var] += str(value)
+        stacksVarValues[var].append(value)
     else:
         stacksVarValues[var] = str(value)
 
