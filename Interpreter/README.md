@@ -18,6 +18,10 @@ A small programming language interpreter written in Python.
 - arithmetic operations
     Syntax:
     - math n1 n2 op
+- comparision
+    Syntax
+    - math 5 7 gt {returns False}
+    - math x = 5 7 gt {creates {'x': 'False'}}
 - multi-number math operations
 - operator dispatch table
 - more features will be added
