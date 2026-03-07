@@ -35,10 +35,13 @@ def varEval(tokens):
         return
     eq_index = tokens.index('=')
     var = tokens[0]
+    if eq_index == len(tokens) - 1:
+        print(f"Invalid statement {var} = ??")
+        quit()
     expr = tokens[eq_index + 1:]
 
     if expr[-1] in operations.keys():
-            varValues[var] = mathOpsEval(expr[1:])
+            varValues[var] = mathOpsEval(expr[:])
     else:
         try:
             varValues[var] = float(expr[0])
