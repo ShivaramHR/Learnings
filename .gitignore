@@ -212,3 +212,4 @@ __marimo__/
 
 # IDE
 .idea/
+mini_interpreter/.gitignore
